@@ -1,0 +1,27 @@
+<%include ../partials/header %>
+<header>        
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand google-sans" href="#">Portals</a>
+                </div>
+            <div class="user google-sans"><%=currUser.username %>
+                <br>
+                <span id='userCred'>Cr: <%= currUser.credits %></span>
+            </div>
+            </div>
+            <ul class="nav">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="/user">Matches</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/user/bets">Current Bets</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" href="/auth/logout" style="color:darkred" >Logout</a>
+                          </li>
+                  </ul>
+        </nav>
+        <hr>      
+    </header>
+    

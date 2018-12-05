@@ -1,0 +1,129 @@
+<% include userHeader %>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header google-sans" style="background: #e0d8d8">
+            <h5 class="modal-title" id="exampleModalLabel">Place bet</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5 class="open-sans weight-400" style="word-break: break-all">Match ID : <span id= 'match-id'></span> </h5>
+            <hr>
+            <h6 class="open-sans weight-400">Team one : <span id= 'teamOne'></span> <br><span>
+                <strong>Bet percentage : <span id='onePer'></span> </strong></span></h6>
+            
+            <br>
+            <h6 class="open-sans weight-400">Team two : <span id= 'teamTwo'></span> <br><span>
+                <strong>Bet percentage : <span id='twoPer'></span> </strong></span</h6>
+            <br>
+            <hr>
+                <select name = 'choice' id = 'choice'>
+                    <option value="One">Team One</option>
+                    <option value="Two">Team Two</option>
+                </select>
+                <br><br>
+                <div style="display: flex;justify-content: space-between;">
+                        <h6 class="open-sans weight-400" style="line-height: 1.7;">Bet Amount: </h6> <input type="number" name='betAmount' id='betAmount' placeholder="Bet value" style='width:50%;    border-radius: 4px;
+                        border: none;
+                        background-color: #efefef;
+                        padding: 7px;' min = '0'> 
+                </div> 
+                <br>
+                <button class="btn btn-primary" id = 'addBet'>Place Bet </button>
+                <br>
+                <br>
+                <p class = 'result' style="display:hidden"></p>
+        </div>
+        </div>
+    </div>
+    </div>
+<div class="container">
+    <div class="row">
+        <% if(data.length!== 0) { %>
+        <% data.forEach(function(match) { %> 
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem; cursor: pointer;">
+                <div class="card-body" data-id = '<%= match.id %>' data-one = '<%= match.teamOne %>' 
+                    data-two = '<%= match.teamTwo %>' data-onePer = '<%= match.oneBetPercentage%>' data-twoPer = '<%= match.twoBetPercentage%>'  >
+                    <h5 class="card-title google-sans">Match</h5>
+                    <hr>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans black"><strong>Team 1 :</strong> <%= match.teamOne %></h6>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans "><strong>Team 2 :</strong> <%= match.teamTwo %></h6>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans"><strong>Date :</strong> <%= match.date.toLocaleDateString('en-Us') %></h6>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans"><strong>Time: </strong> <%= match.time %></h6>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+        <% }   %>
+    </div>
+</div>
+<script>
+    $('.card-body').on('click', function() {
+        var id = $(this).data('id');
+        var one = $(this).data('one');
+        var two = $(this).data('two');
+        var onePer = $(this).data('oneper');
+        var twoPer = $(this).data('twoper')
+        console.log(onePer + " "+ twoPer)
+        console.log(id);
+        $('#match-id').text(id);
+        $('#teamOne').text(one);
+        $('#teamTwo').text(two);
+        $('#onePer').text(onePer);
+        $('#twoPer').text(twoPer);
+        $('#modal').modal();
+    })
+    
+    $('#addBet').on('click', function() {
+        
+        var amt = Number($('#betAmount').val());
+        var checkAmt = Number('<%= currUser.credits %>');
+        console.log(amt+"  " +checkAmt)
+        if(amt> checkAmt) {
+            alert("Bet value overflow, please enter a valid bet.")
+        }
+        else {
+            console.log("coming here")
+            var match = $('#match-id').text();
+            var sel = $('#choice').val();
+            var ud = checkAmt - amt;
+
+            var dataToSend  = {
+                user: '<%= currUser.username %>',
+                match: match,
+                team: sel,
+                betAmount: amt,
+                updateCredit: ud,
+                one: $('#teamOne').text(),
+                two: $('#teamTwo').text()
+            }
+                $.ajax({
+                type: "POST",
+                url: "/user/addbet",
+                data: dataToSend,
+                timeout: 30000,
+                success: function(result) {
+                    if(result!=='') {
+                        $('.result').text('Bet placed successfully on Team '+ sel);
+                        $('.result').fadeIn(300).delay(1000).fadeOut(300);
+                        $('#userCred').text("Cr: "+ud)
+                    }
+                    else {
+                        $('.result').text("Bet couldn't be placed");
+                        $('.result').fadeIn(300).delay(1000).fadeOut(300);
+                    }
+                },
+                error: function(jqXHR, textStatus, err) {
+                            alert('text status '+textStatus+', err '+err)
+                }
+            });
+        }
+    })
+ 
+    
+</script>

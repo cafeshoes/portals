@@ -1,0 +1,74 @@
+<% include adminHeader %>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Match</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form method ="POST" action = '/admin/addmatch' >
+            <br>    
+            <label for="team-1">
+                    <input type="text" name = "teamOne" placeholder="Team name - 1" required>
+            </label>
+            <br>
+            <label for="team-1-percent">
+                    <input type="Number" name = "onePercent" placeholder="Team One bet Percentage" required>
+            </label>
+            <br>
+            <label for="team-2">
+                    <input type="text" name = "teamTwo" placeholder="Team name - 2" required>
+            </label>
+            <br>
+            <label for="team-2-percent">
+                    <input type="Number" name = "twoPercent" placeholder="Team Two bet Percentage" required>
+            </label>
+            <br>   
+            <label for='date'>
+                <input type="date" name="date" >
+            </label>
+            <label for='date'>
+                    <input type="time" name="time" >
+            </label>
+            <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Add Match">
+                </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <% if(data.length!== 0) { %>
+        <% data.forEach(function(match) { %> 
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title google-sans">Match</h5>
+                    <hr>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans black"><strong>Team 1 :</strong> <%= match.teamOne %></h6>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans "><strong>Team 2 :</strong> <%= match.teamTwo %></h6>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans"><strong>Date :</strong> <%= match.date.toLocaleDateString('en-Us') %></h6>
+                    <h6 class="card-subtitle mb-2 text-muted google-sans"><strong>Time: </strong> <%= match.time %></h6>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+        <% }   %>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem; text-align: center">
+                <div class="card-body">
+                    <h5 class="card-title">Add Match</h5>
+                    <a href="#" class="btn btn-primary google-sans new-team" data-toggle="modal" data-target="#exampleModal">Add Match</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

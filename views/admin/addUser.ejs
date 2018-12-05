@@ -1,0 +1,32 @@
+<% include adminHeader %>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+                <form method ="POST" action = '/admin/adduser' class="adduser" >
+                    <br>    
+                    <label for="username">
+                            <input type="text" name = "username" placeholder="Username" required>
+                    </label>    
+                    <br>  
+                    <label for="password">
+                            <input type="text" name = "password" placeholder="New Password" required>
+                    </label>    
+                    <br>                      
+                    <input type="submit" class="btn btn-primary" value="Add User"> 
+                </form>
+                <% if(postQuery === 1) { %>
+                    <% if(newuserAdded === false) {%>
+                    <p class="user-result"> <%= userAdded %> could not be added.</p>
+                    <% } else { %>
+                    <p class="user-result"> <%= userAdded %> added successfully</p>
+                    <% }} %>
+                <br>
+                <a href="/admin">&#706; Back to home</a>
+        </div>
+        <div class="col-md-4"></div>
+        
+    </div>
+
+</div>

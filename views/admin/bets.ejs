@@ -1,0 +1,35 @@
+<%include adminHeader %>
+<div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">User</th>
+              <th scope="col">Match</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Placed on</th>
+              <th scope="col">Remove</th>
+            </tr>
+          </thead>
+          <% var i = 1 %>
+          <tbody>
+            <% data.forEach(function(bet) { %>
+                <th scope="row"><%= i %></th>
+                <td>
+                    <%= bet.user %><br>
+                    <% if(bet.team === "One") { %>
+                        <span style="font-size:12px">Team : <%= bet.one %> </span>
+                    <% } else { %>
+                    <span style="font-size:12px">Team : <%= bet.two %> </span>
+                    <% } %> 
+                </td>
+                <td>
+                    Match: <%= bet.one %> vs <%= bet.two %>
+                </td>
+                <td><%= bet.betAmount %></td>
+                <td><%= bet.date.toLocaleDateString("en-US") + " (" + bet.date.getHours() + ":" +bet.date.getMinutes()+ ")"%></td>
+                <td><a href='/admin/removeBet/<%= bet.id %>'>Delete</a></td>
+            <% }) %>
+          </tbody>
+        </table>
+</div>

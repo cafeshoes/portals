@@ -1,0 +1,91 @@
+body {
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+button {
+    outline:none;
+}
+input {
+    outline: none;
+}
+.quicksand {
+    font-family: Quicksand;
+}
+.google-sans {
+    font-family: Google Sans;
+}
+.open-sans {
+    font-family: open sans;
+}
+.roboto {
+    font-family: Roboto;
+}
+
+.weight-300 {
+    font-weight: 300;
+}
+.weight-400 {
+    font-weight: 400;
+}
+
+.jumbotron {
+    margin-top: 10%;
+    background: rgba(233, 236, 239, 0.76);
+}
+.admin-login {
+    text-align: center;
+}
+.admin-login input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    opacity: 0.8;
+}
+.admin-login >.btn {
+    width:22%;
+}
+
+.navbar-header a{
+    font-size: 2.5em;
+    color: black;
+}
+header hr {
+    margin-top: 0%;
+    width: 91%;
+    border-top-color: #1b1b1b45;
+}
+.card {
+    margin-bottom : 10%;  
+}
+
+.new-team {
+    padding: 12px 19px;
+    font-size: 1.2em;
+    margin-bottom: 3px;
+    border-radius: 10000px;
+    border: none;
+    background-color: #e91e63b8;
+    width: 66%;
+}
+.adduser > label ,input {
+    width: 100%;
+}
+.adduser >label>input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    opacity: 0.8;
+}
+.user-result {
+    padding: 10px;
+    width: 100%;
+    background: hsla(0, 0%, 100%, 0.58)
+}
+.modal-body  label>input{
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    opacity: 0.8;
+    background-color: #d2d2d2;
+}

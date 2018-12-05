@@ -1,0 +1,79 @@
+<%include ../partials/header %>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change user credits</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                    <br>    
+                    <label for="username">
+                            <input type="text" id='cUser' name = "username" placeholder="Username for the credit" required>
+                    </label>
+                    <br>
+                    <label for="credits">
+                            <input type="text" id='cAmt' name = "credits" placeholder="Credit Amount" required> 
+                    </label>
+                    <br>   
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id='updateCredit'>Update Credit</button>
+                        </div>
+                
+            </div>
+            </div>
+        </div>
+        </div>
+<script>
+        $("#updateCredit").click(function(){
+            var name = $('#cUser').val();
+            var amt = $('#cAmt').val();
+        var dataToSend = {
+            username: name,
+            credits : amt
+        }
+        $.ajax({
+                type: "POST",
+                url: "/admin/credits",
+                timeout: 2000,
+                data: dataToSend,
+                success: function(data) {
+                    alert(data)
+                },
+                error: function(jqXHR, textStatus, err) {
+                    //show error message
+                    alert('text status '+textStatus+', err '+err)
+                }
+            });
+    });
+    </script>
+<header>        
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand google-sans" href="#">Portals</a>
+            </div>
+        </div>
+        <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link active" href="/admin">Matches</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/adduser">Add User</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal2">Update Credits</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="admin/bets" >Bet Status</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="/admin/logout" style="color:darkred" >Logout</a>
+                      </li>
+              </ul>
+    </nav>
+    <hr>      
+</header>
